@@ -62,7 +62,7 @@ app.post('/send-message', jsonParser, function(req, res) {
             "title": "New Message!",
             "body": message,
             "icon": "/images/profile_placeholder.png",
-            "click_action": "https://iic3585-2021.github.io/pwa-grupo9/"
+            "click_action": "https://friendlychat-3f1f3.web.app/"
             },
         "to": receiver
     }
