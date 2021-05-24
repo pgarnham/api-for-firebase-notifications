@@ -47,7 +47,7 @@ let config = {
 
 
 
-app.post('/send-message', function(req, res) {
+app.post('/send-message', jsonParser, function(req, res) {
     const message = req.body.message;
     const senderToken = req.body.token;
 
