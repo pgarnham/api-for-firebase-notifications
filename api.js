@@ -62,7 +62,7 @@ app.post('/send-message', jsonParser, function(req, res) {
         "notification": {
             "title": "New Message from " + user + " !",
             "body": message,
-            "icon": "/images/profile_placeholder.png",
+            "icon": "/images/icon-3.png",
             "click_action": "https://friendlychat-3f1f3.web.app/"
             },
         "to": receiver
