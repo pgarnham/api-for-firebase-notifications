@@ -1,13 +1,15 @@
 const express = require('express');
 const axios = require('axios');
 const db = require('./models/index.js');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var cors = require('cors');
 
 const { Client } = require('pg');
 
 
 
 const app = express();
+app.use(cors());
 var jsonParser = bodyParser.json()
 const port = process.env.PORT || 5000;
 
