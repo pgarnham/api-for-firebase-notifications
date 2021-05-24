@@ -53,13 +53,14 @@ let config = {
 app.post('/send-message', jsonParser, function(req, res) {
     const message = req.body.message;
     const senderToken = req.body.token;
+    const user = req.body.user;
 
     
     tokens.forEach(receiver => {
       if (receiver != senderToken) {
       let body =  {
         "notification": {
-            "title": "New Message!",
+            "title": "New Message from " + user + " !",
             "body": message,
             "icon": "/images/profile_placeholder.png",
             "click_action": "https://friendlychat-3f1f3.web.app/"
