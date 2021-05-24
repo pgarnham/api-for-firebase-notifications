@@ -23,14 +23,14 @@ app.get('/', function(req, res) {
   res.send("Hi, this is a Express API");
 });
 
-var tokens = []
+var tokens = new Set();
 
 app.post('/new-user', jsonParser, function(req, res) {
     console.log("Request desde insomnia",req.body.token);
     console.log(req.body);
     const newToken = req.body.token
   
-    tokens.push(newToken);
+    tokens.add(newToken);
     res.send({
       'status': "success",
       'token': newToken
