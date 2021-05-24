@@ -7,6 +7,10 @@ const port = process.env.PORT || 5000;
 
 // routes will go here
 
+app.get('/', function(req, res) {
+  res.send("Hi, this is a Express API");
+});
+
 
 
 app.post('/new-user', function(req, res) {
@@ -34,24 +38,29 @@ let config = {
 
 app.post('/send-message', function(req, res) {
     const message = req.body.message;
+    const senderToken = req.body.message;
 
-    const body =  {
+    const tokens = db.fcmtoken.findAll({where: {token: {[Op.notLike]: senderToken}}});
+    
+    tokens.forEach(receiver => {
+      let body =  {
         "notification": {
             "title": "New Message!",
             "body": message,
             "icon": "/images/profile_placeholder.png",
             "click_action": "https://iic3585-2021.github.io/pwa-grupo9/"
             },
-        "to": "c98HE2TinSFUn4BWKEhDrq:APA91bElPvHm0FFEMgeea8aq5A9VHG2i6pPd_NHXuT541TEdaBg2wOKREmyIi32ucTsEgMP-VDLKOK_hSWOahzhZ0NhzOZvE5PfLFiK9LfoQFxB6frUpzXxZRLk91Qz_zR1Oy-d-3ZYg"
+        "to": receiver
     }
-
     axios({
-        method: 'post',
-        url: 'https://fcm.googleapis.com/fcm/send',
-        data: body,
-        headers: config.headers
-      });
-  
+      method: 'post',
+      url: 'https://fcm.googleapis.com/fcm/send',
+      data: body,
+      headers: config.headers
+    });
+    });
+
+
     res.send({
       'status': "success",
       'message': message
