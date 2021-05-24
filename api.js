@@ -1,19 +1,19 @@
 const express = require('express');
 const axios = require('axios');
 const db = require('./models/index.js');
+var bodyParser = require('body-parser')
 
 const { Client } = require('pg');
 
 
 
 const app = express();
+var jsonParser = bodyParser.json()
 const port = process.env.PORT || 5000;
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
-client.connect();
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+
 
 // routes will go here
 
@@ -23,10 +23,15 @@ app.get('/', function(req, res) {
 
 var tokens = []
 
-app.post('/new-user', function(req, res) {
+app.post('/new-user', jsonParser, function(req, res) {
+    console.log("Request desde insomnia",req.body.token);
     const newToken = req.body.token
   
     tokens.push(newToken);
+    res.send({
+      'status': "success",
+      'token': newToken
+    });
 
   });
 
