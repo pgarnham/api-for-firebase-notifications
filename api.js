@@ -49,7 +49,7 @@ let config = {
 
 app.post('/send-message', function(req, res) {
     const message = req.body.message;
-    const senderToken = req.body.message;
+    const senderToken = req.body.token;
 
     
     tokens.forEach(receiver => {
