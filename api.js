@@ -25,6 +25,7 @@ var tokens = []
 
 app.post('/new-user', jsonParser, function(req, res) {
     console.log("Request desde insomnia",req.body.token);
+    console.log(req.body);
     const newToken = req.body.token
   
     tokens.push(newToken);
