@@ -16,7 +16,7 @@
   "production": {
     "username": "grupo9pwa",
     "password": "grupo9pwa",
-    "database": "pwa_production",
+    "database": "postgres",
     "host": "localhost",
     "dialect": "postgres",
     "use_env_variable": "DATABASE_URL"
