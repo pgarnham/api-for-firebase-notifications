@@ -14,10 +14,11 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "grupo9",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "grupo9pwa",
+    "password": "grupo9pwa",
+    "database": "pwa_production",
+    "host": "localhost",
+    "dialect": "postgres",
+    "use_env_variable": "DATABASE_URL"
   }
 }
