@@ -2,8 +2,18 @@ const express = require('express');
 const axios = require('axios');
 const db = require('./models/index.js');
 
+const { Client } = require('pg');
+
+
+
 const app = express();
 const port = process.env.PORT || 5000;
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+client.connect();
 
 // routes will go here
 
@@ -11,17 +21,13 @@ app.get('/', function(req, res) {
   res.send("Hi, this is a Express API");
 });
 
-
+var tokens = []
 
 app.post('/new-user', function(req, res) {
     const newToken = req.body.token
   
-    urlShortener.short(url, function(err, fcmToken) {
-      db.fcmtoken.findOrCreate({where: {token: newToken}})
-      .then(([urlObj, created]) => {
-        res.send(fcmToken)
-      });
-    });
+    tokens.push(newToken);
+
   });
 
 
@@ -40,9 +46,9 @@ app.post('/send-message', function(req, res) {
     const message = req.body.message;
     const senderToken = req.body.message;
 
-    const tokens = db.fcmtoken.findAll({where: {token: {[Op.notLike]: senderToken}}});
     
     tokens.forEach(receiver => {
+      if (receiver != senderToken) {
       let body =  {
         "notification": {
             "title": "New Message!",
@@ -58,6 +64,7 @@ app.post('/send-message', function(req, res) {
       data: body,
       headers: config.headers
     });
+  }
     });
 
 
